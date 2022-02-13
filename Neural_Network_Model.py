@@ -22,6 +22,7 @@ from tensorflow import keras
 from keras.optimizers import *
 from Parameters import *
 import random
+from keras.layers import LeakyReLU
 
 class Neural_Network_Model:
 
@@ -93,18 +94,53 @@ class Neural_Network_Model:
         x_batch = np.zeros((batch_size, time_window_size, number_of_features, 1))
         y_batch = np.zeros((batch_size, 1))
 
+        start_idx = random.randint(0, total_number_of_samples - time_window_size-1)
+
+        while (True):
+
+            for batch_index in range(batch_size):
+
+                # start_idx = random.randint(0, total_number_of_samples - time_window_size-1)
+
+                x_batch[batch_index] = data_x_np[start_idx:start_idx + time_window_size,:].reshape((MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES,1)) #flattening --> 1D CNN
+                y_batch[batch_index] = data_y_np[start_idx + time_window_size]
+
+                start_idx += time_window_size
+                if start_idx >= total_number_of_samples - time_window_size:
+                    start_idx = 0
+
+            yield x_batch, y_batch
+
+
+    def batch_generator_two_dim_cnn_v2(self,time_window_size, data_x_np, data_y_np, batch_size):
+        # in this version we slide by one sample between matrices contained by the batch
+        # NOT USEFUL
+
+        number_of_features = NUMBER_OF_FEATURES
+        total_number_of_samples = data_x_np.shape[0]
+        assert (data_x_np.shape[0] == data_y_np.shape[0]), "Inputs and Targets do not have the same size!"
+        assert (data_x_np.shape[1] == NUMBER_OF_FEATURES), "Invalid number of features!"
+
+        x_batch = np.zeros((batch_size, time_window_size, number_of_features, 1))
+        y_batch = np.zeros((batch_size, 1))
+
         start_idx = 0
 
         while (True):
 
             for batch_index in range(batch_size):
 
-                start_idx = random.randint(0, total_number_of_samples - time_window_size-1)
+                # start_idx = random.randint(0, total_number_of_samples - time_window_size-1)
 
                 x_batch[batch_index] = data_x_np[start_idx:start_idx + time_window_size,:].reshape((MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES,1)) #flattening --> 1D CNN
                 y_batch[batch_index] = data_y_np[start_idx + time_window_size]
 
+                start_idx += 1 # sliding by 1 row
+                if start_idx >= total_number_of_samples - time_window_size:
+                    start_idx = 0
+
             yield x_batch, y_batch
+
 
 
     def create_model(self, input_at_t0_np, input_at_t100_np, regularization_param_lambda, optimizer_value):
@@ -164,13 +200,16 @@ class Neural_Network_Model:
 
         ###################### 2D CNN
         self.nn_model = Sequential()
-        self.nn_model.add(Conv2D(filters=3, kernel_size=(5,5), padding='same', activation='relu', input_shape=(MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES, 1)))
-        self.nn_model.add(MaxPooling2D((3,3), padding='same'))
-        self.nn_model.add(Dropout(0.3))
+        self.nn_model.add(Conv2D(filters=3, kernel_size=(3,3), padding='same', input_shape=(MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES, 1)))
+        self.nn_model.add(LeakyReLU(alpha=0.5))
+        # self.nn_model.add(MaxPooling2D((3,3), padding='same'))
+        # self.nn_model.add(LeakyReLU(alpha=0.5))
         self.nn_model.add(BatchNormalization())
         self.nn_model.add(Flatten())
-        self.nn_model.add(Dense(20, 'relu'))
-        self.nn_model.add(Dense(1, 'linear'))
+        self.nn_model.add(Dense(3))
+        self.nn_model.add(LeakyReLU(alpha=0.5))
+        # self.nn_model.add(BatchNormalization())
+        self.nn_model.add(Dense(1, 'sigmoid'))
 
         #physics based regularization
         input_vector_t0 = K.constant(value=input_at_t0_np[:,1:].reshape((-1,MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES,1)))
@@ -190,7 +229,6 @@ class Neural_Network_Model:
 
         energy_difference = energy_computed_at_t100 - energy_computed_at_t0
         total_loss = self.combined_loss([energy_difference, drive_cycle_id_t0_np, drive_cycle_id_t100_np, lam])
-
 
         self.nn_model.compile(loss=total_loss,
                               optimizer=optimizer_value,
@@ -229,7 +267,7 @@ class Neural_Network_Model:
         self.history = self.nn_model.fit_generator(generator=train_gen, validation_data=valid_gen,
                               epochs=num_epochs,
                                steps_per_epoch=STEPS_PER_EPOCH,
-                              validation_steps=10,
+                              validation_steps=100,
                               callbacks=[early_stopping, reduce_lr_loss],
                               shuffle=True)
 
@@ -247,16 +285,17 @@ class Neural_Network_Model:
 
         return self.history
 
+    def test_model(self, test_X_np, test_Y_np):
+        # test_batch_x, test_batch_y = self.batch_generator_two_dim_cnn(MODEL_INPUT_TIME_STEPS,test_X_np,test_Y_np,DATA_GENERATOR_BATCH_SIZE)
+        gen = self.batch_generator_two_dim_cnn(MODEL_INPUT_TIME_STEPS, test_X_np, test_Y_np,
+                                                                     DATA_GENERATOR_BATCH_SIZE)
 
+        test_batch_x, test_batch_y = next(gen)
 
-
-
-
-
-
-
-
-
+        y_pred = self.nn_model.predict_on_batch(x=test_batch_x)
+        print(y_pred)
+        print("############################################################################################3")
+        print(test_batch_y)
 
     def plot_trainig_history(self):
         # list all data in history

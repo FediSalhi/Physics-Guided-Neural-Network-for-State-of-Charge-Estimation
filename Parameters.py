@@ -26,7 +26,7 @@ NEG_10_DEG_NN_DATA_FILE                      = "06-14-17_13.12 n10degC_NN_Pan186
 ####################### -20 DegC #######################
 
 # drive cycles
-NEG_20_DEG_DRIVE_CYCLES_PATH                 = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/-20degC/Drive_Cycles"
+NEG_20_DEG_DRIVE_CYCLES_PATH                 = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/-20degC/Drive_cycles"
 
 NEG_20_DEG_HWFET_DATA_FILE                   = "06-23-17_23.35 n20degC_HWFET_Pan18650PF.mat"
 NEG_20_DEG_HWFET_UDSS_LA92_NN_DATA_FILE      = "06-23-17_23.35 n20degC_HWFET_UDDS_LA92_NN_Pan18650PF.mat"
@@ -42,7 +42,7 @@ NEG_20_DEG_US06_DATA_FILE                    = "06-25-17_10.31 n20degC_US06_Pan1
 #################### -20 DegC Trise ####################
 
 # drive cycles
-NEG_20_DEG_TRISE_DRIVE_CYCLES_PATH              = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/-20degC_Trise/Drive_Cycles"
+NEG_20_DEG_TRISE_DRIVE_CYCLES_PATH              = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/-20degC_Trise"
 
 NEG_20_DEG_TRISE_HWFET_UDSS_LA92_NN_DATA_FILE   = " 06-30-17_16.55 n20degC_trise_HWFET_UDDS_LA92_NN_Pan18650PF.mat"
 NEG_20_DEG_CYCLE_1_DATA_FILE                    = "06-30-17_19.27 n20degC_trise_Cycle_1_Pan18650PF.mat"
@@ -54,7 +54,7 @@ NEG_20_DEG_US06_DATA_FILE                       = "07-01-17_19.59 n20degC_trise_
 ######################## 0 DegC ########################
 
 #drive cycles
-ZERO_DEG_DRIVE_CYCLES_PATH                      = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/0degC/Drive_Cycles"
+ZERO_DEG_DRIVE_CYCLES_PATH                      = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/0degC/Drive_cycles"
 
 ZERO_DEG_CYCLE_1_DATA_FILE                      = "05-30-17_12.56 0degC_Cycle_1_Pan18650PF.mat"
 ZERO_DEG_CYCLE_2_DATA_FILE                      = "05-30-17_20.16 0degC_Cycle_2_Pan18650PF.mat"
@@ -86,7 +86,7 @@ POS_10_DEG_US06_DATA_FILE                    = "03-27-17_09.06 10degC_US06_Pan18
 #################### 10 DegC Trise #####################
 
 # drive cycles
-POS_10_DEG_TRISE_DRIVE_CYCLES_PATH              = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/10degC_Trise/Drive_Cycles"
+POS_10_DEG_TRISE_DRIVE_CYCLES_PATH              = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/10degC_Trise"
 
 POS_10_DEG_TRISE_HWFET_UDSS_LA92_NN_DATA_FILE   = "07-09-17_16.33 10degC_trise_HWFET_UDDS_LA92_NN_Pan18650PF.mat"
 POS_10_DEG_TRISE_CYCLE_1_DATA_FILE                    = "07-09-17_19.11 10degC_trise_Cycle_1_Pan18650PF.mat"
@@ -97,7 +97,7 @@ POS_10_DEG_TRISE_CYCLE_4_DATA_FILE                    = "07-10-17_15.34 10degC_t
 ####################### 25 DegC  #######################
 
 # drive cycles
-POS_25_DEG_DRIVE_CYCLES_PATH                    = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/25degC/Drive_Cycles"
+POS_25_DEG_DRIVE_CYCLES_PATH                    = "/home/fedi/Desktop/Master/Dataset/Panasonic_18650PF_Data/25degC/Drive_cycles"
 
 POS_25_DEG_CYCLE_1_DATA_FILE                    = "03-18-17_02.17 25degC_Cycle_1_Pan18650PF.mat"
 POS_25_DEG_CYCLE_2_DATA_FILE                    = "03-19-17_03.25 25degC_Cycle_2_Pan18650PF.mat"
@@ -113,71 +113,71 @@ POS_25_DEG_NN_DATA_FILE                         = "03-21-17_16.27 25degC_NN_Pan1
 
 #################################################### DATASET VARS ######################################################
 
-# DATASET_ALL_FILES = [
-#     NEG_10_DEG_HWFET_DATA_FILE                      ,
-#     NEG_10_DEG_L92_DATA_FILE                        ,
-#     NEG_10_DEG_UDSS_DATA_FILE                       ,
-#     NEG_10_DEG_HWFET_UDSS_LA92_DATA_FILE            ,
-#     NEG_10_DEG_US06_DATA_FILE                       ,
-#     NEG_10_DEG_CYCLE_1_DATA_FILE                    ,
-#     NEG_10_DEG_CYCLE_2_DATA_FILE                    ,
-#     NEG_10_DEG_CYCLE_3_DATA_FILE                    ,
-#     NEG_10_DEG_CYCLE_4_DATA_FILE                    ,
-#     NEG_10_DEG_NN_DATA_FILE                         ,
-#     NEG_20_DEG_HWFET_DATA_FILE                      ,
-#     NEG_20_DEG_HWFET_UDSS_LA92_NN_DATA_FILE         ,
-#     NEG_20_DEG_LA92_DATA_FILE                       ,
-#     NEG_20_DEG_NN_DATA_FILE                         ,
-#     NEG_20_DEG_UDSS_DATA_FILE                       ,
-#     NEG_20_DEG_CYCLE_1_DATA_FILE                    ,
-#     NEG_20_DEG_CYCLE_2_DATA_FILE                    ,
-#     NEG_20_DEG_CYCLE_3_DATA_FILE                    ,
-#     NEG_20_DEG_CYCLE_4_DATA_FILE                    ,
-#     NEG_20_DEG_US06_DATA_FILE                       ,
-#     NEG_20_DEG_TRISE_HWFET_UDSS_LA92_NN_DATA_FILE   ,
-#     NEG_20_DEG_CYCLE_1_DATA_FILE                    ,
-#     NEG_20_DEG_CYCLE_2_DATA_FILE                    ,
-#     NEG_20_DEG_CYCLE_3_DATA_FILE                    ,
-#     NEG_20_DEG_CYCLE_4_DATA_FILE                    ,
-#     NEG_20_DEG_US06_DATA_FILE                       ,
-#     ZERO_DEG_CYCLE_1_DATA_FILE                      ,
-#     ZERO_DEG_CYCLE_2_DATA_FILE                      ,
-#     ZERO_DEG_CYCLE_3_DATA_FILE                      ,
-#     ZERO_DEG_CYCLE_4_DATA_FILE                      ,
-#     ZERO_DEG_LA92_NN_DATA_FILE                      ,
-#     ZERO_DEG_LA92_DATA_FILE                         ,
-#     ZERO_DEG_NN_DATA_FILE                           ,
-#     ZERO_DEG_US06_DATA_FILE                         ,
-#     ZERO_DEG_HWFET_DATA_FILE                        ,
-#     POS_10_DEG_HWFET_DATA_FILE                      ,
-#     POS_10_DEG_HWFET_UDSS_LA92_NN_DATA_FILE         ,
-#     POS_10_DEG_LA92_DATA_FILE                       ,
-#     POS_10_DEG_NN_DATA_FILE                         ,
-#     POS_10_DEG_UDSS_DATA_FILE                       ,
-#     POS_10_DEG_CYCLE_1_DATA_FILE                    ,
-#     POS_10_DEG_CYCLE_2_DATA_FILE                    ,
-#     POS_10_DEG_CYCLE_3_DATA_FILE                    ,
-#     POS_10_DEG_CYCLE_4_DATA_FILE                    ,
-#     POS_10_DEG_US06_DATA_FILE                       ,
-#     POS_10_DEG_TRISE_HWFET_UDSS_LA92_NN_DATA_FILE   ,
-#     POS_10_DEG_TRISE_CYCLE_1_DATA_FILE              ,
-#     POS_10_DEG_TRISE_CYCLE_2_DATA_FILE              ,
-#     POS_10_DEG_TRISE_CYCLE_3_DATA_FILE              ,
-#     POS_10_DEG_TRISE_CYCLE_4_DATA_FILE              ,
-#     POS_25_DEG_CYCLE_1_DATA_FILE                    ,
-#     POS_25_DEG_CYCLE_2_DATA_FILE                    ,
-#     POS_25_DEG_CYCLE_3_DATA_FILE                    ,
-#     POS_25_DEG_CYCLE_4_DATA_FILE                    ,
-#     POS_25_DEG_US06_DATA_FILE                       ,
-#     POS_25_DEG_HWFET_A_DATA_FILE                    ,
-#     POS_25_DEG_HWFET_B_DATA_FILE                    ,
-#     POS_25_DEG_UDSS_DATA_FILE                       ,
-#     POS_25_DEG_LA92_DATA_FILE                       ,
-#     POS_25_DEG_NN_DATA_FILE
-# ]
-
-
 DATASET_ALL_FILES = [
+    NEG_10_DEG_HWFET_DATA_FILE                      ,
+    NEG_10_DEG_L92_DATA_FILE                        ,
+    NEG_10_DEG_UDSS_DATA_FILE                       ,
+    NEG_10_DEG_HWFET_UDSS_LA92_DATA_FILE            ,
+    NEG_10_DEG_US06_DATA_FILE                       ,
+    NEG_10_DEG_CYCLE_1_DATA_FILE                    ,
+    NEG_10_DEG_CYCLE_2_DATA_FILE                    ,
+    NEG_10_DEG_CYCLE_3_DATA_FILE                    ,
+    NEG_10_DEG_CYCLE_4_DATA_FILE                    ,
+    NEG_10_DEG_NN_DATA_FILE                         ,
+    NEG_20_DEG_HWFET_DATA_FILE                      ,
+    NEG_20_DEG_HWFET_UDSS_LA92_NN_DATA_FILE         ,
+    NEG_20_DEG_LA92_DATA_FILE                       ,
+    NEG_20_DEG_NN_DATA_FILE                         ,
+    NEG_20_DEG_UDSS_DATA_FILE                       ,
+    NEG_20_DEG_CYCLE_1_DATA_FILE                    ,
+    NEG_20_DEG_CYCLE_2_DATA_FILE                    ,
+    NEG_20_DEG_CYCLE_3_DATA_FILE                    ,
+    NEG_20_DEG_CYCLE_4_DATA_FILE                    ,
+    NEG_20_DEG_US06_DATA_FILE                       ,
+    NEG_20_DEG_TRISE_HWFET_UDSS_LA92_NN_DATA_FILE   ,
+    NEG_20_DEG_CYCLE_1_DATA_FILE                    ,
+    NEG_20_DEG_CYCLE_2_DATA_FILE                    ,
+    NEG_20_DEG_CYCLE_3_DATA_FILE                    ,
+    NEG_20_DEG_CYCLE_4_DATA_FILE                    ,
+    NEG_20_DEG_US06_DATA_FILE                       ,
+    ZERO_DEG_CYCLE_1_DATA_FILE                      ,
+    ZERO_DEG_CYCLE_2_DATA_FILE                      ,
+    ZERO_DEG_CYCLE_3_DATA_FILE                      ,
+    ZERO_DEG_CYCLE_4_DATA_FILE                      ,
+    ZERO_DEG_LA92_NN_DATA_FILE                      ,
+    ZERO_DEG_LA92_DATA_FILE                         ,
+    ZERO_DEG_NN_DATA_FILE                           ,
+    ZERO_DEG_US06_DATA_FILE                         ,
+    ZERO_DEG_HWFET_DATA_FILE                        ,
+    POS_10_DEG_HWFET_DATA_FILE                      ,
+    POS_10_DEG_HWFET_UDSS_LA92_NN_DATA_FILE         ,
+    POS_10_DEG_LA92_DATA_FILE                       ,
+    POS_10_DEG_NN_DATA_FILE                         ,
+    POS_10_DEG_UDSS_DATA_FILE                       ,
+    POS_10_DEG_CYCLE_1_DATA_FILE                    ,
+    POS_10_DEG_CYCLE_2_DATA_FILE                    ,
+    POS_10_DEG_CYCLE_3_DATA_FILE                    ,
+    POS_10_DEG_CYCLE_4_DATA_FILE                    ,
+    POS_10_DEG_US06_DATA_FILE                       ,
+    POS_10_DEG_TRISE_HWFET_UDSS_LA92_NN_DATA_FILE   ,
+    POS_10_DEG_TRISE_CYCLE_1_DATA_FILE              ,
+    POS_10_DEG_TRISE_CYCLE_2_DATA_FILE              ,
+    POS_10_DEG_TRISE_CYCLE_3_DATA_FILE              ,
+    POS_10_DEG_TRISE_CYCLE_4_DATA_FILE              ,
+    POS_25_DEG_CYCLE_1_DATA_FILE                    ,
+    POS_25_DEG_CYCLE_2_DATA_FILE                    ,
+    POS_25_DEG_CYCLE_3_DATA_FILE                    ,
+    POS_25_DEG_CYCLE_4_DATA_FILE                    ,
+    POS_25_DEG_US06_DATA_FILE                       ,
+    POS_25_DEG_HWFET_A_DATA_FILE                    ,
+    POS_25_DEG_HWFET_B_DATA_FILE                    ,
+    POS_25_DEG_UDSS_DATA_FILE                       ,
+    POS_25_DEG_LA92_DATA_FILE                       ,
+    POS_25_DEG_NN_DATA_FILE
+]
+
+
+DATASET_NEURAL_NETWORK_FILES = [
     NEG_10_DEG_NN_DATA_FILE                         ,
     NEG_20_DEG_NN_DATA_FILE                         ,
     ZERO_DEG_NN_DATA_FILE                           ,
@@ -208,6 +208,7 @@ class Program_Modes(enum.Enum):
     PROG_MODE_CLEAN_DATA = 4,
     PROG_MODE_TRAIN_MODEL = 5,
     PROG_MODE_DATA_NORMALIZATION = 6
+    PROG_MODE_TEST_MODEL = 7
 
 class Debug_Levels(enum.Enum):
     DEBUG_LEVEL_ALL             = 0,
@@ -226,7 +227,7 @@ RATED_CAPACITY = 2.9 # 2900 mAh
 
 
 NUMBER_OF_FEATURES = 3
-PHYSICS_LAMBDA = 1
+PHYSICS_LAMBDA = 0.5
 
 ############################################# Indexes ############################################
 
@@ -256,5 +257,11 @@ MODEL_INPUT_TIME_STEPS  = 100
 NUMBER_OF_FEATURES = 3
 DATA_GENERATOR_BATCH_SIZE = 1000
 EPOCHS = 100
-PATIENCE_NUM_EPOCHS = 2
-STEPS_PER_EPOCH = 500 #number of batches per epoch
+PATIENCE_NUM_EPOCHS = 5
+STEPS_PER_EPOCH = 1000 #number of batches per epoch
+
+TEST_BATCH_SIZE = 100
+SHUFFLE_STEPS = 1000
+SHUFFLE_DATA_BEFORE_TRAINING = True
+APPLY_MEDIAN_FILTER_TO_INPUTS = False
+

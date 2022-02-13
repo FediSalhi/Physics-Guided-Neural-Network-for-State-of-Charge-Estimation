@@ -178,6 +178,14 @@ class Data_Processor:
 
         return training_data_np, test_data_np
 
+    def smart_data_split(self, clean_data_np, validation_rate, test_rate, time_steps):
+        #TODO: implement this method
+
+        number_of_samples_all = clean_data_np.shape[0]
+        number_of_samples_test = int(number_of_samples_all * test_rate)
+        number_of_samples_training = int(number_of_samples_all - number_of_samples_test)
+
+
     # def label_data(self):
     #      #add soc to clean dataset
 
@@ -232,8 +240,33 @@ class Data_Processor:
         filtered_data_np[:,LABELLED_DATA_WITH_ID_TEMPERATURE_INDEX] =\
             scipy.signal.medfilt(filtered_data_np[:,LABELLED_DATA_WITH_ID_TEMPERATURE_INDEX], window_length)
 
-
         return filtered_data_np
+
+    def shuffle_data(self, data_np, time_steps, shuffler_iterations):
+        number_of_rows = data_np.shape[0]
+        number_of_columns = data_np.shape[1]
+        assert (number_of_rows % time_steps == 0), "The number of rows should be divisible by the time steps"
+        number_of_steps = int(number_of_rows / time_steps)
+        shuffled_data_np = np.zeros((number_of_rows, number_of_columns))
+
+        for shuffle_index in range(shuffler_iterations):
+            print("shuffle index = " + str(shuffle_index))
+            for step_index in range(0,number_of_rows, time_steps):
+                batch_start_index = random.randint(0, number_of_rows - time_steps)
+                batch = data_np[batch_start_index:batch_start_index+time_steps, :]
+                shuffled_data_np[step_index:step_index+time_steps,:] = batch
+
+
+
+
+
+
+        return shuffled_data_np
+
+
+
+
+
 
 
 
