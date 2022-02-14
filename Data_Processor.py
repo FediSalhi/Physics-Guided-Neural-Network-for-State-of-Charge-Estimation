@@ -181,9 +181,41 @@ class Data_Processor:
     def smart_data_split(self, clean_data_np, validation_rate, test_rate, time_steps):
         #TODO: implement this method
 
-        number_of_samples_all = clean_data_np.shape[0]
-        number_of_samples_test = int(number_of_samples_all * test_rate)
-        number_of_samples_training = int(number_of_samples_all - number_of_samples_test)
+        number_of_samples_all           = clean_data_np.shape[0]
+        number_of_samples_test          = int(number_of_samples_all * test_rate)
+        number_of_samples_validation    = int(number_of_samples_all*validation_rate)
+        number_of_samples_training      = int(number_of_samples_all - number_of_samples_test-number_of_samples_validation)
+
+        if number_of_samples_training % time_steps != 0:
+            number_of_samples_training -= number_of_samples_training % time_steps
+
+        if number_of_samples_validation % time_steps != 0:
+            number_of_samples_validation -= number_of_samples_validation % time_steps
+
+        if number_of_samples_test % time_steps != 0:
+            number_of_samples_test -= number_of_samples_test % time_steps
+
+
+        training_data_np        = np.zeros((number_of_samples_training,clean_data_np.shape[1]))
+        validation_data_np      = np.zeros((number_of_samples_validation, clean_data_np.shape[1]))
+        test_data_np            = np.zeros((number_of_samples_test, clean_data_np.shape[1]))
+
+        training_index      = 0
+        validation_index    = 0
+        test_index          = 0
+
+        for samples_index in range(0,number_of_samples_all, time_steps):
+            if training_index < number_of_samples_training:
+                training_data_np[samples_index:samples_index+time_steps,:] = clean_data_np[samples_index:samples_index+time_steps, :]
+                training_index += time_steps
+            if validation_index < number_of_samples_validation:
+                validation_data_np[samples_index:samples_index+time_steps,:] = clean_data_np[samples_index+time_steps:samples_index + time_steps*2, :]
+                validation_index += time_steps
+            if test_index < number_of_samples_test:
+                test_data_np[samples_index:samples_index + time_steps, :] = clean_data_np[samples_index + time_steps*2:samples_index + time_steps *3, :]
+                test_index += time_steps
+
+        return training_data_np, validation_data_np, test_data_np
 
 
     # def label_data(self):

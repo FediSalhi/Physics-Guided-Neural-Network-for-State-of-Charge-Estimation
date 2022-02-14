@@ -200,14 +200,26 @@ class Neural_Network_Model:
 
         ###################### 2D CNN
         self.nn_model = Sequential()
-        self.nn_model.add(Conv2D(filters=3, kernel_size=(3,3), padding='same', input_shape=(MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES, 1)))
+        self.nn_model.add(Conv2D(filters=5, kernel_size=(3,3), padding='same', input_shape=(MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES, 1)))
+        self.nn_model.add(LeakyReLU(alpha=0.3))
+
+        # self.nn_model.add(Dropout(0.3))
+        self.nn_model.add(MaxPooling2D((3,3), padding='same'))
+        self.nn_model.add(LeakyReLU(alpha=0.2))
+        self.nn_model.add(BatchNormalization())
+
+        self.nn_model.add(Conv2D(filters=5, kernel_size=(3,3), padding='same', input_shape=(MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES, 1)))
+        self.nn_model.add(LeakyReLU(alpha=0.1))
+        self.nn_model.add(BatchNormalization())
+
+        # self.nn_model.add(Dropout(0.3))
+        self.nn_model.add(MaxPooling2D((3,3), padding='same'))
         self.nn_model.add(LeakyReLU(alpha=0.5))
-        # self.nn_model.add(MaxPooling2D((3,3), padding='same'))
+
         # self.nn_model.add(LeakyReLU(alpha=0.5))
         self.nn_model.add(BatchNormalization())
         self.nn_model.add(Flatten())
-        self.nn_model.add(Dense(3))
-        self.nn_model.add(LeakyReLU(alpha=0.5))
+        self.nn_model.add(Dense(15))
         # self.nn_model.add(BatchNormalization())
         self.nn_model.add(Dense(1, 'sigmoid'))
 
@@ -269,7 +281,7 @@ class Neural_Network_Model:
                                steps_per_epoch=STEPS_PER_EPOCH,
                               validation_steps=100,
                               callbacks=[early_stopping, reduce_lr_loss],
-                              shuffle=True)
+                              shuffle=False)
 
 
         print(self.history.history.keys())
@@ -296,6 +308,11 @@ class Neural_Network_Model:
         print(y_pred)
         print("############################################################################################3")
         print(test_batch_y)
+
+        plt.plot(y_pred)
+        plt.plot(test_batch_y)
+        plt.show()
+
 
     def plot_trainig_history(self):
         # list all data in history

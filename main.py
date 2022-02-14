@@ -49,9 +49,9 @@ if __name__ == '__main__':
             dataset_labelled_filtered_np = dataset_labelled_correct_data_types_np
 
 
-        plt.plot(dataset_labelled_filtered_np[:52522,LABELLED_DATA_WITH_ID_VOLTAGE_INDEX])
-        plt.plot(dataset_labelled_correct_data_types_np[:52522, LABELLED_DATA_WITH_ID_VOLTAGE_INDEX])
-        plt.show()
+        # plt.plot(dataset_labelled_filtered_np[:52522,LABELLED_DATA_WITH_ID_VOLTAGE_INDEX])
+        # plt.plot(dataset_labelled_correct_data_types_np[:52522, LABELLED_DATA_WITH_ID_VOLTAGE_INDEX])
+        # plt.show()
 
 
         physics_regularization_input_at_t0, \
@@ -60,7 +60,7 @@ if __name__ == '__main__':
                                                                                                delta_sample=DELTA_SAMPLES)
 
         #remove drive id from dataset (drive id is only needed for physics based loss calculation)
-        dataset_labelled_clean_np = dataset_labelled_filtered_np[:383000,1:]
+        dataset_labelled_clean_np = dataset_labelled_filtered_np[:,1:]
 
         #shuflle the data
         if SHUFFLE_DATA_BEFORE_TRAINING:
@@ -73,13 +73,21 @@ if __name__ == '__main__':
         training_data_labelled_np, \
         test_data_labelled_np = processor.split_data(dataset_labelled_clean_np, TEST_DATA_RATE) #data without id but with label
 
+        #smart split test
+        training, validation, test = processor.smart_data_split(dataset_labelled_clean_np[0:52522], 0.30, 0.30, 100)
+        debug = 0
+
+        plt.plot(training[:, -1])
+        plt.plot(validation[:, -1])
+        plt.show()
+
 
         #go to the next step
         run_mode = Program_Modes.PROG_MODE_CREATE_AND_COMPILING_MODEL
 
     if run_mode == Program_Modes.PROG_MODE_CREATE_AND_COMPILING_MODEL:
         physics_guided_nn = Neural_Network_Model()
-        opt = keras.optimizers.Adam(learning_rate=0.01)
+        opt = keras.optimizers.Adam(learning_rate=0.001)
         nn_model = physics_guided_nn.create_model(physics_regularization_input_at_t0,   #drive cycle included label removed
                                                   physics_regularization_input_at_t100,
                                                   PHYSICS_LAMBDA,
@@ -91,15 +99,28 @@ if __name__ == '__main__':
     if run_mode == Program_Modes.PROG_MODE_DATA_NORMALIZATION:
 
 
-        train_X_np = training_data_labelled_np[:50000, :-1]
-        train_Y_np = training_data_labelled_np[:50000, -1]
+        # train_X_np = training_data_labelled_np[:10000, :-1]
+        # train_Y_np = training_data_labelled_np[:10000, -1]
+        #
+        #
+        # valid_X_np = training_data_labelled_np[:10000, :-1]
+        # valid_Y_np = training_data_labelled_np[:10000, -1]
+        #
+        # test_X_np = test_data_labelled_np[:, :-1]
+        # test_Y_np = test_data_labelled_np[:, -1]
 
 
-        valid_X_np = training_data_labelled_np[:50000, :-1]
-        valid_Y_np = training_data_labelled_np[:50000, -1]
 
-        test_X_np = test_data_labelled_np[:, :-1]
-        test_Y_np = test_data_labelled_np[:, -1]
+        train_X_np = training[:, :-1]
+        train_Y_np = training[:, -1]
+
+
+        valid_X_np = validation[:, :-1]
+        valid_Y_np = validation[:, -1]
+
+        test_X_np = test[:, :-1]
+        test_Y_np = test[:, -1]
+
 
         scaler = preprocessing.MinMaxScaler().fit(train_X_np)
         # scaler = preprocessing.StandardScaler().fit(train_X_np)
