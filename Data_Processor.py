@@ -21,7 +21,7 @@ class Data_Processor:
     def __init__(self):
         pass
 
-    def read_mat_data_file(self, path_str, drive_cycle_id):
+    def read_mat_data_file(self, path_str, drive_cycle_id, chamber_temperature):
 
         mat_file_dict = loadmat(path_str)['meas']
         keys = mat_file_dict.keys()
@@ -40,9 +40,11 @@ class Data_Processor:
 
         number_of_samples = chamber_temp_degc_np.shape[0]
         drive_cycle_id_np = np.zeros((number_of_samples,1))
+        chamber_temperature_np = np.zeros((number_of_samples, 1))
 
         for data_point_idx in range(0,drive_cycle_id_np.shape[0]):
             drive_cycle_id_np[data_point_idx] = drive_cycle_id
+            chamber_temperature_np[data_point_idx] = chamber_temperature
 
 
         # plt.plot(current_ampere_np)
@@ -59,6 +61,7 @@ class Data_Processor:
         #                             axis=1)
 
         raw_data_np = np.concatenate((drive_cycle_id_np,
+                                    chamber_temperature_np,
                                     voltage_v_np,
                                     current_ampere_np,
                                     battery_temp_degc_np,
@@ -70,13 +73,15 @@ class Data_Processor:
     def read_all_files(self, all_data_files_array, all_data_paths_array, debug_level):
 
         labels = None
-        dataset_np = np.zeros((1, 5))
+        dataset_np = np.zeros((1, 6))
         drive_cycle_index = 0
 
         for name in all_data_files_array:
             for path in all_data_paths_array:
                 if os.path.exists(path + '/' + name):
-                    labels, drive_cycle_data_np = self.read_mat_data_file(path + '/' + name, drive_cycle_index)
+                    labels, drive_cycle_data_np = self.read_mat_data_file(path + '/' + name,
+                                                                          drive_cycle_index,
+                                                                          CHAMBER_TEMPERATURE[drive_cycle_index])
                     dataset_np = np.concatenate((dataset_np, drive_cycle_data_np))
                     drive_cycle_index += 1
                     print(path + '/' + name)
@@ -96,8 +101,9 @@ class Data_Processor:
         return dataset_np
 
     def save_batches(self, debug_level, dataset_np):
+        # this version includes chamber temperature as feature
         batch_size = 100
-        saved_dataset_np = np.zeros((0, 5))
+        saved_dataset_np = np.zeros((0, 6))
         line_counter = 0
         number_of_lines = dataset_np.shape[0]
         reached_line = 0
@@ -119,7 +125,7 @@ class Data_Processor:
 
             line_counter += 1
             line = np.array(dataset_np[line_index])
-            line = line.reshape((1, 5))
+            line = line.reshape((1, 6))
             saved_dataset_np = np.concatenate((saved_dataset_np, line))
 
             if line_index % batch_size == 0:

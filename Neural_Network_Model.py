@@ -1,3 +1,4 @@
+import scipy
 from keras import Sequential
 import numpy as np
 from Parameters import *
@@ -309,8 +310,12 @@ class Neural_Network_Model:
         print("############################################################################################3")
         print(test_batch_y)
 
+        filtered_pred_np= scipy.signal.medfilt(y_pred, 11)
+
+
         plt.plot(y_pred)
         plt.plot(test_batch_y)
+        plt.plot(filtered_pred_np)
         plt.show()
 
 

@@ -74,7 +74,7 @@ if __name__ == '__main__':
         test_data_labelled_np = processor.split_data(dataset_labelled_clean_np, TEST_DATA_RATE) #data without id but with label
 
         #smart split test
-        training, validation, test = processor.smart_data_split(dataset_labelled_clean_np[0:52522], 0.30, 0.30, 100)
+        training, validation, test = processor.smart_data_split(dataset_labelled_clean_np[:], 0.30, 0.30, 100)
         debug = 0
 
         plt.plot(training[:, -1])
@@ -99,27 +99,27 @@ if __name__ == '__main__':
     if run_mode == Program_Modes.PROG_MODE_DATA_NORMALIZATION:
 
 
-        # train_X_np = training_data_labelled_np[:10000, :-1]
-        # train_Y_np = training_data_labelled_np[:10000, -1]
+        train_X_np = training_data_labelled_np[:, :-1]
+        train_Y_np = training_data_labelled_np[:, -1]
+
+
+        valid_X_np = test_data_labelled_np[:, :-1]
+        valid_Y_np = test_data_labelled_np[:, -1]
+
+        test_X_np = test_data_labelled_np[:, :-1]
+        test_Y_np = test_data_labelled_np[:, -1]
+
+
+
+        # train_X_np = training[:, :-1]
+        # train_Y_np = training[:, -1]
         #
         #
-        # valid_X_np = training_data_labelled_np[:10000, :-1]
-        # valid_Y_np = training_data_labelled_np[:10000, -1]
+        # valid_X_np = validation[:, :-1]
+        # valid_Y_np = validation[:, -1]
         #
-        # test_X_np = test_data_labelled_np[:, :-1]
-        # test_Y_np = test_data_labelled_np[:, -1]
-
-
-
-        train_X_np = training[:, :-1]
-        train_Y_np = training[:, -1]
-
-
-        valid_X_np = validation[:, :-1]
-        valid_Y_np = validation[:, -1]
-
-        test_X_np = test[:, :-1]
-        test_Y_np = test[:, -1]
+        # test_X_np = test[:, :-1]
+        # test_Y_np = test[:, -1]
 
 
         scaler = preprocessing.MinMaxScaler().fit(train_X_np)
@@ -128,9 +128,9 @@ if __name__ == '__main__':
         valid_X_np = scaler.transform(valid_X_np)
         test_X_np = scaler.transform(test_X_np)
 
-        train_X_np = train_X_np.reshape((-1, 3))
-        valid_X_np = valid_X_np.reshape((-1, 3))
-        test_X_np = test_X_np.reshape((-1, 3))
+        train_X_np = train_X_np.reshape((-1, 4))
+        valid_X_np = valid_X_np.reshape((-1, 4))
+        test_X_np = test_X_np.reshape((-1, 4))
 
 
         run_mode = Program_Modes.PROG_MODE_TRAIN_MODEL
