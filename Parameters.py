@@ -227,7 +227,7 @@ RATED_CAPACITY = 2.9 # 2900 mAh
 
 
 NUMBER_OF_FEATURES = 3
-PHYSICS_LAMBDA = 1
+PHYSICS_LAMBDA = 5
 
 ############################################# Indexes ############################################
 
