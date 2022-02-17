@@ -113,7 +113,7 @@ class Data_Processor:
             # clean_dataset_np = np.genfromtxt('clean_drive_cycles_dataset.csv', delimiter=',')
             try:
                 saved_dataset_np = np.loadtxt("clean_drive_cycles_dataset_unlabelled.csv", delimiter=',', dtype=str)
-                saved_dataset_np = saved_dataset_np.reshape((-1, 5))
+                saved_dataset_np = saved_dataset_np.reshape((-1, 6))
                 reached_line = saved_dataset_np.shape[0]
             except UserWarning:
                 print("File exists but empty, ignored ...")

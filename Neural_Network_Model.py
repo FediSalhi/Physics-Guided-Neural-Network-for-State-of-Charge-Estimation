@@ -1,4 +1,4 @@
-import scipy
+import scipy.signal
 from keras import Sequential
 import numpy as np
 from Parameters import *
@@ -206,18 +206,12 @@ class Neural_Network_Model:
 
         # self.nn_model.add(Dropout(0.3))
         self.nn_model.add(MaxPooling2D((3,3), padding='same'))
-        self.nn_model.add(LeakyReLU(alpha=0.2))
+        # self.nn_model.add(LeakyReLU(alpha=0.2))
         self.nn_model.add(BatchNormalization())
 
         self.nn_model.add(Conv2D(filters=5, kernel_size=(3,3), padding='same', input_shape=(MODEL_INPUT_TIME_STEPS, NUMBER_OF_FEATURES, 1)))
         self.nn_model.add(LeakyReLU(alpha=0.1))
-        self.nn_model.add(BatchNormalization())
-
-        # self.nn_model.add(Dropout(0.3))
         self.nn_model.add(MaxPooling2D((3,3), padding='same'))
-        self.nn_model.add(LeakyReLU(alpha=0.5))
-
-        # self.nn_model.add(LeakyReLU(alpha=0.5))
         self.nn_model.add(BatchNormalization())
         self.nn_model.add(Flatten())
         self.nn_model.add(Dense(15))
@@ -310,7 +304,7 @@ class Neural_Network_Model:
         print("############################################################################################3")
         print(test_batch_y)
 
-        filtered_pred_np= scipy.signal.medfilt(y_pred, 11)
+        filtered_pred_np= scipy.signal.medfilt(y_pred[:], 21)
 
 
         plt.plot(y_pred)

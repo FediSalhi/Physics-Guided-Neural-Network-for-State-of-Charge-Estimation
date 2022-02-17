@@ -99,27 +99,27 @@ if __name__ == '__main__':
     if run_mode == Program_Modes.PROG_MODE_DATA_NORMALIZATION:
 
 
-        train_X_np = training_data_labelled_np[:, :-1]
-        train_Y_np = training_data_labelled_np[:, -1]
-
-
-        valid_X_np = test_data_labelled_np[:, :-1]
-        valid_Y_np = test_data_labelled_np[:, -1]
-
-        test_X_np = test_data_labelled_np[:, :-1]
-        test_Y_np = test_data_labelled_np[:, -1]
-
-
-
-        # train_X_np = training[:, :-1]
-        # train_Y_np = training[:, -1]
+        # train_X_np = training_data_labelled_np[:, :-1]
+        # train_Y_np = training_data_labelled_np[:, -1]
         #
         #
-        # valid_X_np = validation[:, :-1]
-        # valid_Y_np = validation[:, -1]
+        # valid_X_np = test_data_labelled_np[:, :-1]
+        # valid_Y_np = test_data_labelled_np[:, -1]
         #
-        # test_X_np = test[:, :-1]
-        # test_Y_np = test[:, -1]
+        # test_X_np = test_data_labelled_np[:, :-1]
+        # test_Y_np = test_data_labelled_np[:, -1]
+
+
+
+        train_X_np = training[:, :-1]
+        train_Y_np = training[:, -1]
+
+
+        valid_X_np = validation[:, :-1]
+        valid_Y_np = validation[:, -1]
+
+        test_X_np = test[:, :-1]
+        test_Y_np = test[:, -1]
 
 
         scaler = preprocessing.MinMaxScaler().fit(train_X_np)
